@@ -1,7 +1,7 @@
 <?php
-  include "conf/info.php";
-  $title="Filmes do momento";
-  include_once "header.php";
+  include "conf/info.php";// inclui o arquivo com as configurações
+  $title="Filmes do momento";// titulo da pagina
+  include_once "header.php";// inclui o cabeçalho
 ?>
 <h1><?php echo $title ?></h1>
 <?php
@@ -11,8 +11,8 @@
   echo "<h5>De <b>". $min . "</b>, até <b>" . $max . "</b></h5>";
 ?>
 <?php
-  echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
-  foreach($nowplaying->results as $p){
+  echo '<div class="row row-cols-1 row-cols-md-3 g-4">';// inicia a div row
+  foreach($nowplaying->results as $p){// foreach para cada resultado
     echo '<div class="col">
             <div class="card h-100">
               <img src="http://image.tmdb.org/t/p/w500'. $p->backdrop_path . '" class="card-img-top" alt="'.$p->original_title.'">
@@ -28,8 +28,8 @@
             </div>
           </div>';
   }
-  echo '</div>';
+  echo '</div>';// fecha a div row
 ?>
 <?php
-  include_once "footer.php";
+  include_once "footer.php";// inclui o rodapé
 ?>
