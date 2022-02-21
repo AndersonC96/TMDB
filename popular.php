@@ -1,14 +1,14 @@
 <?php
-  include "conf/info.php";
-  $title="Filmes populares";
-  include_once "header.php";
+  include "conf/info.php";// inclui o arquivo com as configurações
+  $title="Filmes populares";// titulo da pagina
+  include_once "header.php";// inclui o cabeçalho
 ?>
 <h1>Filmes populares</h1>
 <ul>
   <?php
-    include_once "api/api_popular.php";
-    echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
-    foreach ($popular->results as $p){
+    include_once "api/api_popular.php";// inclui o arquivo com as configurações
+    echo '<div class="row row-cols-1 row-cols-md-3 g-4">';// inicia a div row
+    foreach ($popular->results as $p){// foreach para cada resultado
       echo '<div class="col">
               <div class="card h-100">
                 <img src="http://image.tmdb.org/t/p/w500'. $p->backdrop_path . '" class="card-img-top" alt="'.$p->original_title.'">
@@ -24,9 +24,9 @@
               </div>
             </div>';
     }
-    echo '</div>';
+    echo '</div>';// fecha a div row
   ?>
 </ul>
 <?php
-  include_once "footer.php";
+  include_once "footer.php";// inclui o rodapé
 ?>
