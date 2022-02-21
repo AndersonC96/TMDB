@@ -1,6 +1,6 @@
 <?php
   include "conf/info.php";
-  $id_movie = $_GET['id'];
+  $id_movie = $_GET['id'];// pega o valor do input
   include_once "api/api_movie_id.php";
   include_once "api/api_movie_video_id.php";
   include_once "api/api_movie_similar.php";
@@ -8,7 +8,7 @@
   include_once "header.php";
 ?>
 <?php
-  if(isset($_GET['id'])){
+  if(isset($_GET['id'])){// pega o valor do input
     $id_movie = $_GET['id'];
 ?>
 <h1 class="m-2 text-center"><a style="color: #0dcaf0"><?php echo $movie_id->original_title ?></a> | <a style="color: #0dcaf0"><?php echo $movie_id->title ?></a></h1>
