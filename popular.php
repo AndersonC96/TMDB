@@ -1,19 +1,32 @@
 <?php
   include "conf/info.php";
-  $title="Popular Movies";
+  $title="Filmes populares";
   include_once "header.php";
 ?>
-    <h1>~ Popular Movies ~</h1>
-    <hr>
-    <ul>
-      <?php
-        include_once "api/api_popular.php";
-        foreach($popular->results as $p){
-          echo '<li><a href="movie.php?id=' . $p->id . '"><img src="'.$imgurl_1.''. $p->poster_path . '"><h4>' . $p->original_title . " (" . substr($p->release_date, 0, 4) . ")</h4><h5><em> Rate : " . $p->vote_average . " | Vote : " . $p->vote_count . " | Popularity : " . round($p->popularity) . "</em></h5></a></li>";
-        }
-      ?>
-    </ul>
-
+<h1>Filmes populares</h1>
+<ul>
+  <?php
+    include_once "api/api_popular.php";
+    echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
+    foreach ($popular->results as $p){
+      echo '<div class="col">
+              <div class="card h-100">
+                <img src="http://image.tmdb.org/t/p/w500'. $p->backdrop_path . '" class="card-img-top" alt="'.$p->original_title.'">
+                <div class="card-body">
+                  <h5 class="card-title" style="color: #0dcaf0">'. $p->original_title . ' | ' . $p->title .' ('. substr($p->release_date, 0, 4) . ')'.'</h5>
+                  <p class="card-text text-break" style="color: black">'.$p->overview.'</p>
+                  <a href="movie.php?id='.$p->id.'" class="btn btn-primary">Detalhes</a>
+                </div>
+                <div class="card-footer">
+                  <span class="badge bg-primary">'.$p->vote_average.'</span>
+                  <small class="text-muted">Data de lançamento: '.date("d/m/Y", strtotime($p->release_date)).'</b></small>
+                </div>
+              </div>
+            </div>';
+    }
+    echo '</div>';
+  ?>
+</ul>
 <?php
   include_once "footer.php";
 ?>
