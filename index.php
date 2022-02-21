@@ -1,13 +1,13 @@
 <?php
   include "conf/info.php";
-  $title="Bem-vindo ao $sitename | $tagline";
+  $title="Bem-vindo ao $sitename | $tagline";// titulo da pagina
   include_once "header.php";
 ?>
 <h1 class="m-2 text-center">Filmes melhores avaliados</h1>
 <?php
   include_once "api/api_toprated.php";
   echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
-  foreach($toprated->results as $p){
+  foreach($toprated->results as $p){// foreach para cada resultado
     echo '<div class="col">
             <div class="card h-100">
               <img src="http://image.tmdb.org/t/p/w500'. $p->backdrop_path . '" class="card-img-top" alt="'.$p->original_title.'">
