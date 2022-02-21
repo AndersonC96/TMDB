@@ -115,20 +115,19 @@
     $output="";
     echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
     foreach($movie_similar_id->results as $sim){
-      $output.='
-      <div class="col">
-        <div class="card h-100">
-          <img src="http://image.tmdb.org/t/p/w300'.$sim->backdrop_path.'" class="card-img-top" alt="...">
-          <div class="card-body">
-          <h5 class="card-title" style="color: #0dcaf0">'.$sim->title.'</h5>
-          <p class="card-text text-break" style="color: black">'.$sim->overview.'</p>
-          <a href="movie.php?id='.$sim->id.'" class="btn btn-primary">Detalhes</a>
-          </div>
-          <div class="card-footer">
-          <small class="text-muted">Data de lançamento: '.date("d/m/Y", strtotime($sim->release_date)).'</b></small>
-          </div>
-        </div>
-      </div>';
+      $output.='<div class="col">
+                  <div class="card h-100">
+                    <img src="http://image.tmdb.org/t/p/w300'.$sim->backdrop_path.'" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title" style="color: #0dcaf0">'.$sim->title.'</h5>
+                      <p class="card-text text-break" style="color: black">'.$sim->overview.'</p>
+                      <a href="movie.php?id='.$sim->id.'" class="btn btn-primary">Detalhes</a>
+                    </div>
+                    <div class="card-footer">
+                      <small class="text-muted">Data de lançamento: '.date("d/m/Y", strtotime($sim->release_date)).'</b></small>
+                    </div>
+                  </div>
+                </div>';
       if($count <=0){
         break;
         $count--;
