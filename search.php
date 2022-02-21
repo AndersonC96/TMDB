@@ -73,7 +73,7 @@
 							</div>
 							<div class="card-footer">
 								<span class="badge bg-primary">'.$results->vote_average.'</span>
-								<small class="text-muted">Data de lançamento: '.date("d/m/Y", strtotime($results->first_air_date)).'</b></small>
+								<small class="text-muted">Estreia: '.date("d/m/Y", strtotime($results->first_air_date)).'</b></small>
 							</div>
 						</div>
 					</div>';
