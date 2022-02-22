@@ -158,8 +158,6 @@
     echo "<h5>Filme não encontrado.</h5>";
   }
 ?>
-    
-
 <?php
   include_once "footer.php";
 ?>
