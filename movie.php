@@ -4,6 +4,7 @@
   include_once "api/api_movie_id.php";
   include_once "api/api_movie_video_id.php";
   include_once "api/api_movie_similar.php";
+  include_once "api/api_movie_recommendations.php";
   $title = "$movie_id->original_title";
   include_once "header.php";
 ?>
@@ -87,8 +88,6 @@
   ?>
 </p>
 <br>
-<h3 class="m-2 text-center" style="color: #d63384">Créditos</h3>
-<br>
 <h3 class="m-2 text-center" style="color: #d63384">Trailers</h3>
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
@@ -124,6 +123,7 @@
                       <a href="movie.php?id='.$sim->id.'" class="btn btn-primary">Detalhes</a>
                     </div>
                     <div class="card-footer">
+                      <span class="badge bg-primary">'.$sim->vote_average.'</span>
                       <small class="text-muted">Data de lançamento: '.date("d/m/Y", strtotime($sim->release_date)).'</b></small>
                     </div>
                   </div>
@@ -142,6 +142,37 @@
     echo "<h5>Filme não encontrado.</h5>";
   }
 ?>
+<br>
+<h3 class="m-2 text-center" style="color: #d63384">Recomendações</h3>
+<ul>
+  <?php
+    $count = 4;
+    $output="";
+    echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
+    foreach($movie_recommendations_id->results as $rec){
+      $output.='<div class="col">
+                  <div class="card h-100">
+                    <img src="http://image.tmdb.org/t/p/w300'.$rec->backdrop_path.'" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title" style="color: #0dcaf0">'.$rec->title.'</h5>
+                      <p class="card-text text-break" style="color: black">'.$rec->overview.'</p>
+                      <a href="movie.php?id='.$rec->id.'" class="btn btn-primary">Detalhes</a>
+                    </div>
+                    <div class="card-footer">
+                      <span class="badge bg-primary">'.$rec->vote_average.'</span>
+                      <small class="text-muted">Data de lançamento: '.date("d/m/Y", strtotime($rec->release_date)).'</b></small>
+                    </div>
+                  </div>
+                </div>';
+      if($count <=0){
+        break;
+        $count--;
+      }
+    }
+    echo $output;
+    echo '</div>';
+  ?>
+</ul>
 <?php
   include_once "footer.php";
 ?>
