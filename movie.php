@@ -93,9 +93,9 @@
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <?php
-    foreach($movie_video_id->results as $video){
-      echo '<div class="carousel-item active"><iframe width="560" height="315" src="'."https://www.youtube.com/embed/".$video->key.'" frameborder="0" allowfullscreen class="rounded d-block w-100"></iframe></div>';
-    }
+      foreach($movie_video_id->results as $video){
+        echo '<div class="carousel-item active"><iframe width="560" height="315" src="'."https://www.youtube.com/embed/".$video->key.'" frameborder="0" allowfullscreen class="rounded d-block w-100"></iframe></div>';
+      }
     ?>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
