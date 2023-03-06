@@ -17,10 +17,15 @@
   echo "<h5 class='m-2 text-center'>".$movie_id->tagline."</h5>";
 ?>
 <img class="rounded mx-auto d-block" src="<?php echo $imgurl_2 ?><?php echo $movie_id->poster_path ?> ">
-<p class="m-2 text-center"><b style="color: #20c997">Gêneros</b>: 
+<p class="m-2 text-center"><b style="color: #20c997">Gêneros</b>:
   <?php
-    foreach($movie_id->genres as $g){
-      echo '<span>' . $g->name . ','. '</span> ';
+    $genres = $movie_id->genres;
+    $last_genre = end($genres); // obtem o último elemento do array
+    foreach($genres as $g){
+      echo '<span>' . $g->name . '</span>';
+      if($g !== $last_genre){
+        echo ', '; // adiciona vírgula somente se não for o último gênero
+      }
     }
   ?>
 </p>
@@ -83,11 +88,15 @@
     if($movie_id->homepage == ""){
       echo "Não disponível";
     }else{
-      echo '<a href="'.$movie_id->homepage.'"  style="text-decoration:none">'.$movie_id->homepage.'</a>';
+      echo '<a href="'.$movie_id->homepage.'" style="text-decoration:none">Clique aqui</a>';
     }
   ?>
 </p>
-<br>
+<p class="m-2 text-center"><b style="color: #20c997">IMDB</b>: 
+  <a href="https://www.imdb.com/title/<?php echo $movie_id->imdb_id; ?>" target="_blank" style="text-decoration: none;">
+    Clique aqui
+  </a>
+</p>
 <h3 class="m-2 text-center" style="color: #d63384">Trailers</h3>
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
