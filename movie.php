@@ -97,6 +97,64 @@
     Clique aqui
   </a>
 </p>
+<p class="m-2 text-center"><b style="color: #20c997">Streaming</b>: 
+  <?php
+    $id_movie = $_GET['id'];
+    $apikey = "80b747723113ce82af58357242c61035";
+    $url = "http://api.themoviedb.org/3/movie/".$id_movie."/watch/providers?api_key=" . $apikey . "&language=pt-BR";
+    $response = file_get_contents($url);
+    $data = json_decode($response);
+    if($BR_providers = $data->results->BR->flatrate == null){
+      echo "Não disponível";
+    }else{
+      $BR_providers = $data->results->BR->flatrate;
+      $provider_names = array();
+      foreach($BR_providers as $provider){
+        array_push($provider_names, $provider->provider_name);
+      }
+      echo implode(", ", $provider_names);
+    }
+  ?>
+</p>
+<p class="m-2 text-center"><b style="color: #20c997">Compra</b>: 
+  <?php
+    $id_movie = $_GET['id'];
+    $apikey = "80b747723113ce82af58357242c61035";
+    $url = "http://api.themoviedb.org/3/movie/".$id_movie."/watch/providers?api_key=" . $apikey . "&language=pt-BR";
+    $response = file_get_contents($url);
+    $data = json_decode($response);
+    if($BR_providers = $data->results->BR->buy == null){
+      echo "Não disponível";
+    }else{
+      $BR_providers = $data->results->BR->buy;
+      $provider_names = array();
+      foreach($BR_providers as $provider){
+        array_push($provider_names, $provider->provider_name);
+      }
+      echo implode(", ", $provider_names);
+    }
+  ?>
+</p>
+<p class="m-2 text-center"><b style="color: #20c997">Aluguel</b>: 
+  <?php
+    $id_movie = $_GET['id'];
+    $apikey = "80b747723113ce82af58357242c61035";
+    $url = "http://api.themoviedb.org/3/movie/".$id_movie."/watch/providers?api_key=" . $apikey . "&language=pt-BR";
+    $response = file_get_contents($url);
+    $data = json_decode($response);
+    if($BR_providers = $data->results->BR->rent == null){
+      echo "Não disponível";
+    }else{
+      $BR_providers = $data->results->BR->rent;
+      $provider_names = array();
+      foreach($BR_providers as $provider){
+        array_push($provider_names, $provider->provider_name);
+      }
+      echo implode(", ", $provider_names);
+    }
+  ?>
+</p>
+<br>
 <h3 class="m-2 text-center" style="color: #d63384">Trailers</h3>
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
