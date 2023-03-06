@@ -16,10 +16,23 @@
   echo "<h5 class='m-2 text-center'>".$tv_id->tagline."</h5>";
 ?>
 <?php
-  echo "<h5 class='m-2 text-center'>Primeiro episódio <b>".date('d/m/Y', strtotime($tv_id->first_air_date))."</b> | último episódio <b>".$rel."</b></h5>";
+  echo "<h5 class='m-2 text-center'><a style='color: #d63384'>Primeiro episódio</a>: <b>".date('d/m/Y', strtotime($tv_id->first_air_date))."</b> | <a style='color: #d63384'>Último episódio</a>: <b>".$rel."</b></h5>";
 ?>
 <img class="rounded mx-auto d-block" src="http://image.tmdb.org/t/p/w300<?php echo $tv_id->poster_path ?>"/>
-<p class="m-2 text-center"><b style="color: #20c997">Status</b>: <?php echo $tv_id->status ?></p>
+<!--<p class="m-2 text-center"><b style="color: #20c997">Status</b>: <?php echo $tv_id->status ?></p>-->
+<p class="m-2 text-center"><b style="color: #20c997">Status</b>: 
+  <?php
+    if($tv_id->status == 'Returning Series'){
+      echo '<span class="badge bg-success">Retornando</span>';
+    }elseif($tv_id->status == 'Ended'){
+      echo '<span class="badge bg-danger">Finalizada</span>';
+    }elseif($tv_id->status == 'Canceled'){
+      echo '<span class="badge bg-danger">Cancelada</span>';
+    }elseif($tv_id->status == 'In Production'){
+      echo '<span class="badge bg-warning">Em produção</span>';
+    }
+  ?>
+</p>
 <p class="m-2 text-center"><b style="color: #20c997">Gêneros</b>: 
   <?php
     foreach($tv_id->genres as $g){
@@ -70,9 +83,88 @@
     echo substr($origin_country, 0, -2);
   ?>
 </p>
+<p class="m-2 text-center"><b style="color: #20c997">Site</b>: 
+  <?php
+    if($tv_id->homepage == ""){
+      echo "Não disponível";
+    }else{
+      echo '<a href="'.$tv_id->homepage.'"  style="text-decoration:none">Clique aqui</a>';
+    }
+  ?>
+</p>
+<p class="m-2 text-center"><b style="color: #20c997">Streaming</b>: 
+  <?php
+    $id_tv = $_GET['id'];
+    $apikey = "80b747723113ce82af58357242c61035";
+    $url = "http://api.themoviedb.org/3/tv/".$id_tv."/watch/providers?api_key=" . $apikey . "&language=pt-BR";
+    $response = file_get_contents($url);
+    $data = json_decode($response);
+    if($BR_providers = $data->results->BR->flatrate == null){
+      echo "Não disponível";
+    }else{
+      $BR_providers = $data->results->BR->flatrate;
+      $provider_names = array();
+      foreach($BR_providers as $provider){
+        array_push($provider_names, $provider->provider_name);
+      }
+      echo implode(", ", $provider_names);
+    }
+  ?>
+</p>
+<p class="m-2 text-center"><b style="color: #20c997">Compra</b>: 
+  <?php
+    $id_movie = $_GET['id'];
+    $apikey = "80b747723113ce82af58357242c61035";
+    $url = "http://api.themoviedb.org/3/tv/".$id_tv."/watch/providers?api_key=" . $apikey . "&language=pt-BR";
+    $response = file_get_contents($url);
+    $data = json_decode($response);
+    if($BR_providers = $data->results->BR->buy == null){
+      echo "Não disponível";
+    }else{
+      $BR_providers = $data->results->BR->buy;
+      $provider_names = array();
+      foreach($BR_providers as $provider){
+        array_push($provider_names, $provider->provider_name);
+      }
+      echo implode(", ", $provider_names);
+    }
+  ?>
+</p>
+<p class="m-2 text-center"><b style="color: #20c997">Aluguel</b>: 
+  <?php
+    $id_movie = $_GET['id'];
+    $apikey = "80b747723113ce82af58357242c61035";
+    $url = "http://api.themoviedb.org/3/tv/".$id_tv."/watch/providers?api_key=" . $apikey . "&language=pt-BR";
+    $response = file_get_contents($url);
+    $data = json_decode($response);
+    if($BR_providers = $data->results->BR->rent == null){
+      echo "Não disponível";
+    }else{
+      $BR_providers = $data->results->BR->rent;
+      $provider_names = array();
+      foreach($BR_providers as $provider){
+        array_push($provider_names, $provider->provider_name);
+      }
+      echo implode(", ", $provider_names);
+    }
+  ?>
+</p>
 <p class="m-2 text-center"><b style="color: #20c997">Número de temporadas</b>: <?php echo $tv_id->number_of_seasons ?></p>
 <p class="m-2 text-center"><b style="color: #20c997">Número de episódios</b>: <?php echo $tv_id->number_of_episodes ?></p>
-<p class="m-2 text-center"><b style="color: #20c997">Último episódio</b>: S<?php echo $tv_id->last_episode_to_air->season_number ?>E<?php echo $tv_id->last_episode_to_air->episode_number ?> | <?php echo $tv_id->last_episode_to_air->name ?> | <?php echo $tv_id->last_episode_to_air->overview ?></p>
+<!--<p class="m-2 text-center"><b style="color: #20c997">Último episódio</b>: S<?php echo $tv_id->last_episode_to_air->season_number ?>E<?php echo $tv_id->last_episode_to_air->episode_number ?> | <?php echo $tv_id->last_episode_to_air->name ?> | <?php echo $tv_id->last_episode_to_air->overview ?></p>-->
+<p class="m-2 text-center"><b style="color: #20c997">Último episódio</b>: <?php
+  if($tv_id->last_episode_to_air->season_number < 10){
+    echo 'S0'.$tv_id->last_episode_to_air->season_number;
+  }else{
+    echo 'S'.$tv_id->last_episode_to_air->season_number;
+  }
+  ?><?php
+    if($tv_id->last_episode_to_air->episode_number < 10){
+      echo 'E0'.$tv_id->last_episode_to_air->episode_number;
+    }else{
+      echo 'E'.$tv_id->last_episode_to_air->episode_number;
+    }
+  ?> | <?php echo $tv_id->last_episode_to_air->name ?> | <?php echo $tv_id->last_episode_to_air->overview ?></p>
 <p class="m-2 text-center"><b style="color: #20c997">Temporadas</b>: 
   <?php
     echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
@@ -93,15 +185,6 @@
           </div>';
     }
     echo '</div>';
-  ?>
-</p>
-<p class="m-2 text-center"><b style="color: #20c997">Site</b>: 
-  <?php
-    if($tv_id->homepage == ""){
-      echo "Não disponível";
-    }else{
-      echo '<a href="'.$tv_id->homepage.'"  style="text-decoration:none">'.$tv_id->homepage.'</a>';
-    }
   ?>
 </p>
 <br>
