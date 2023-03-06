@@ -31,6 +31,9 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="tv-today.php">Séries (Hoje)</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="tv-seriesPopular.php">Séries populares</a>
+          </li>
         </ul>
       </div>
       <form class="d-flex" action="search.php" method="get">
